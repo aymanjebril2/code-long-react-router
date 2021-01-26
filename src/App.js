@@ -1,5 +1,11 @@
 import "./App.css";
-import { Route, NavLink, Switch } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
+import data from "./FakeData.json";
+import Home from "./screens/Home";
+import About from "./screens/About";
+import Posts from "./screens/Posts";
+import Post from "./screens/Post";
+import NoMatch from "./screens/NoMatch";
 
 function App() {
   return (
@@ -13,6 +19,7 @@ function App() {
           <NavLink to={"/posts"}>Posts</NavLink>
         </nav>
       </div>
+
       <main>
         <Switch>
           <Route exact path={"/"}>
@@ -21,9 +28,13 @@ function App() {
           <Route path={"/about"}>
             <About />
           </Route>
-          <Route path={"./posts/:post_id"}>
-            <Posts />
+          <Route exact path={"/posts"}>
+            <Posts posts={data} />
           </Route>
+          <Route path={"/posts/:post_id"}>
+            <Post {...data} />
+          </Route>
+          <Route path={"*"} component={NoMatch}></Route>
         </Switch>
       </main>
     </div>
